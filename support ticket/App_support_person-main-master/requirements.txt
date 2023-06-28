@@ -1,0 +1,6 @@
+Django==4.1
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
+drf-yasg-stubs==0.1.4
+
+# https://kabasele754-supreme-space-guide-g67ggjwq7jqcq44.github.dev/

@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <!-- Content here -->
+
+   <br><br><br>
+        <div class="row">
+          <div class="col-8">
+            <table  
+            class="table"
+            
+            
+           
+                <thead>
+                  <tr>
+                    <th  data-field="subject">Title</th>
+                    <th data-sortable="true" data-field="username">Assigne</th>
+                    <th  data-field="subject">status</th>
+                    <th  data-field="campany"scope="col">Suject</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                {% for ticket in tickets %}
+                  <tr>
+                    <td >{{ ticket.title }}</td>
+                    <th >{{ ticket.assignee }}</th>
+                    <td >{{ ticket.status }}</td>
+                    <td >{{ ticket.Suject }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+          
+          <div class="col-4">
+            <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Create Subject</a>
+          <a class="btn btn-primary" data-bs-target="#exampleModalToggle4" data-bs-toggle="modal">AssigneTicket Support</a>
+
+
+          <br><br>
+          <form method="POST" enctype="multipart/form-data">
+     
+            <!-- Security token -->
+            {% csrf_token %}
+         
+            <!-- Using the formset -->
+            {{ form.as_p }}
+             
+            <input class="btn btn-primary" type="submit" value="Save">
+        </form>
+        
+          </div>
+    
+ 
+
+
+</div>
+</div>
+
+
+
+{% comment %} begin Model for subject {% endcomment %}
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Add Subject</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data">
+     
+          <!-- Security token -->
+          {% csrf_token %}
+       
+          <!-- Using the formset -->
+          {{ form_s.as_p }}
+           
+          <input class="btn btn-primary" type="submit" value="Save">
+      </form>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">add customer</button>
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Add campany</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} end Model for subject {% endcomment %}
+
+{% comment %} begin Model for Customer {% endcomment %}
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Add Customer</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'save_customer' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email </label>
+              <input type="email" class="form-control" name="email" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Phone number</label>
+              <input type="text" class="form-control " placeholder="" name="phone_number">
+              
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Username</label>
+              <input type="text" class="form-control " placeholder="" name="username">
+              
+            </div>
+            <button class="btn btn-primary" type="submit" >Save</button>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} end Model for Customer  {% endcomment %}
+
+
+{% comment %} begin Model for company {% endcomment %}
+
+<div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">Add campany</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="{% url 'save_campany' %}" method="POST">
+              {% csrf_token %}
+
+         
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Name Campany</label>
+              <input type="text" class="form-control " placeholder="" name="campany_name">
+              
+            </div>
+            <button class="btn btn-primary" type="submit" >Save</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} end Model for company {% endcomment %}
+
+
+   
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Assigne Support</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'save_customer' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">title </label>
+              <input type="text" class="form-control" name="title" placeholder="">
+            </div>
+            <div class="mb-3">
+             
+              <select class="form-control " placeholder="" name="assignee">
+                {% for company in companies %}
+                  <option value="{{ company.id }}">{{ company.name }}</option>
+                {% endfor %}
+              </select>
+              
+            </div>
+            
+            <button class="btn btn-primary" type="submit" >Save</button>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
+
